@@ -7,12 +7,8 @@ const (
 	LAST_LANG
 )
 
-const mainMenuNumberOfPositions = 6
-const saleMenuNumberOfPositions = 3
-const reportsMenuNumberOfPositions = 4
-
-type MainMenuType [mainMenuNumberOfPositions]string
-type SaleMenuType [saleMenuNumberOfPositions]string
+type MainMenuType []string
+type SaleMenuType []string
 
 var CurrentLang = PL
 
@@ -21,6 +17,9 @@ var mainMenuTextPL = MainMenuType{
 	"Raporty",
 	"Programowanie",
 	"Kasowanie",
+	"Programowanie",
+	"Konfiguracja",
+	"Serwis",
 	"Logowanie",
 	"Komunikacja"}
 

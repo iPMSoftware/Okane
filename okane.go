@@ -2,10 +2,6 @@ package main
 
 import (
 	"fmt"
-	//"okane2/src/database/ware"
-	//"okane2/src/menu"
-	"okane/database/utils"
-	"okane/database/ware"
 	"okane/hardware"
 	"okane/menu"
 )
@@ -14,39 +10,25 @@ func main() {
 
 	defer hardware.DeInitHardware()
 
-	//var Jablko ware.Ware
-	//Jablko.Id = 1
-	//Jablko.Name = "Jabłko"
-	//Jablko.Vat = ware.Vat('A')
-	//Jablko.Price = 12343
-
-	//fmt.Println(ware.ToString(Jablko))
-
-	//menu.ShowMenu(menu.MainMenu())
 	hardware.InitHardware()
+	menu.InitMenu()
 	fmt.Println("OKANE GO!!")
 
-	var p utils.Price
+	currentMenu := menu.MainMenu
 
-	fmt.Println(p.String())
-
-	var w ware.Ware
-
-	fmt.Println(ware.ToString(w))
-
-	menu.ShowMenu(menu.MainMenu())
-
-	fmt.Println("Press ESC to quit")
 	for true {
+		menu.ShowMenu(menu.MenuTree[currentMenu].Show())
 		key, b := hardware.GetKey()
 		if b == false {
 			break
 		}
-		if key == hardware.Key1 {
-			menu.ShowMenu(menu.SaleMenu())
+		fmt.Println(key)
+		switch key {
+		case hardware.Key1, hardware.Key2, hardware.Key3, hardware.Key4, hardware.Key5, hardware.Key6, hardware.Key7, hardware.Key8, hardware.Key9:
+			currentMenu = menu.GetNextMenuToShow(hardware.KeyToValue(key), currentMenu)
 		}
-		if key == hardware.Key2 {
-			fmt.Println("2")
+		if key == hardware.KeyC {
+			currentMenu = menu.MenuTree[currentMenu].PreviousMenuIndex
 		}
 
 	}
