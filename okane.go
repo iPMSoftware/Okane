@@ -2,8 +2,10 @@ package main
 
 import (
 	"fmt"
+	"okane/database/ware"
 	"okane/hardware"
 	"okane/menu"
+	"okane/sim"
 )
 
 func main() {
@@ -12,6 +14,8 @@ func main() {
 
 	hardware.InitHardware()
 	menu.Init()
+	sim.Init()
+	ware.Init()
 	fmt.Println("OKANE GO!!")
 
 	for true {
@@ -20,7 +24,6 @@ func main() {
 		if b == false {
 			break
 		}
-		fmt.Println(key)
 		switch key {
 		case hardware.Key1, hardware.Key2, hardware.Key3, hardware.Key4, hardware.Key5, hardware.Key6, hardware.Key7, hardware.Key8, hardware.Key9:
 			menu.GetNextMenuToShow(hardware.KeyToValue(key))

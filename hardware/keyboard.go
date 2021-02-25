@@ -38,19 +38,19 @@ func translateRune(r rune) (Key, bool) {
 	case '2':
 		return Key2, true
 	case '3':
-		return Key2, true
+		return Key3, true
 	case '4':
-		return Key2, true
+		return Key4, true
 	case '5':
-		return Key2, true
+		return Key5, true
 	case '6':
-		return Key2, true
+		return Key6, true
 	case '7':
-		return Key2, true
+		return Key7, true
 	case '8':
-		return Key2, true
+		return Key8, true
 	case '9':
-		return Key2, true
+		return Key9, true
 	case 'c':
 		return KeyC, true
 	default:

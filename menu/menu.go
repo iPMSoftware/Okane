@@ -1,15 +1,15 @@
 package menu
 
 import (
-	"fmt"
-	"okane/mock"
+	"os"
+	"os/exec"
 )
 
 type Id int
 type Mfunc func()
 
 const (
-	NoneMenu Id = iota
+	None Id = iota
 	Main
 	Sale
 	ReadReports
@@ -21,43 +21,10 @@ const (
 	Communication
 	DailyReport
 	PeriodicReport
+	WaresReport
 )
 
-type Position struct {
-	Text string
-	id   Id
-	f    Mfunc
-}
-
-type Layout struct {
-	PreviousMenuIndex Id
-	positions         []Position
-}
-
 var current Id = Main
-
-func (l *Layout) getPositions() []string {
-	pos := []string{}
-	for _, v := range l.positions {
-		pos = append(pos, v.Text)
-	}
-	return pos
-}
-
-func (l Layout) Show() {
-	positions := l.getPositions()
-	buf := "=====================\n"
-	i := 1
-	for _, elem := range positions {
-		buf += fmt.Sprintf("%d. %s\n", i, elem)
-		i++
-	}
-	buf += "=====================\n"
-	fmt.Println(buf)
-}
-
-var MenuTree = map[Id]Layout{}
-var Positions = map[Id]Position{}
 
 func showMain() {
 	show(Main)
@@ -71,21 +38,11 @@ func showProgramming() {
 	show(Programming)
 }
 
-func initPositions() {
-	Positions[Main] = Position{Text: "", id: Main, f: showMain}
-	Positions[Sale] = Position{Text: "Sprzedaż", id: Sale, f: mock.Sale}
-	Positions[ReadReports] = Position{Text: "Raporty czytające", id: ReadReports, f: showReadReports}
-	Positions[Programming] = Position{Text: "Programowanie", id: Programming, f: showProgramming}
-
-	Positions[DailyReport] = Position{Text: "Raport dobowy", id: DailyReport, f: mock.DailyReport}
-	Positions[PeriodicReport] = Position{Text: "Raport okresowy", id: PeriodicReport, f: mock.PeriodicReport}
-}
-
 func Init() {
 	initPositions()
 	MenuTree[Main] = Layout{PreviousMenuIndex: Main, positions: []Position{Positions[Sale], Positions[ReadReports], Positions[Programming]}}
 	MenuTree[Sale] = Layout{PreviousMenuIndex: Main, positions: []Position{}}
-	MenuTree[ReadReports] = Layout{PreviousMenuIndex: Main, positions: []Position{Positions[DailyReport], Positions[PeriodicReport]}}
+	MenuTree[ReadReports] = Layout{PreviousMenuIndex: Main, positions: []Position{Positions[DailyReport], Positions[PeriodicReport], Positions[WaresReport]}}
 	MenuTree[Programming] = Layout{PreviousMenuIndex: Main, positions: []Position{}}
 }
 
@@ -105,6 +62,18 @@ func GoBackToPrevious() {
 	current = MenuTree[current].PreviousMenuIndex
 }
 
+func clearScren() {
+	cmd := exec.Command("cmd", "/c", "cls")
+	cmd.Stdout = os.Stdout
+	cmd.Run()
+}
+
 func ExecuteCurrentPosition() {
+	//clearScren()
 	Positions[current].f()
+	if Positions[current].layoutId != None {
+		current = Positions[current].layoutId
+		//clearScren()
+		Positions[current].f()
+	}
 }
