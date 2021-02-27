@@ -18,6 +18,9 @@ const (
 	Key8
 	Key9
 	KeyC
+	KeyArrowDown
+	KeyArrowUp
+	KeyOk
 )
 
 func initKeyboard() {
@@ -90,6 +93,15 @@ func GetKey() (Key, bool) {
 		}
 		if key == keyboard.KeyEsc {
 			return KeyC, false
+		}
+		if key == keyboard.KeyArrowDown {
+			return KeyArrowDown, true
+		}
+		if key == keyboard.KeyArrowUp {
+			return KeyArrowUp, true
+		}
+		if key == keyboard.KeyEnter {
+			return KeyOk, true
 		}
 		return translateRune(char)
 	}

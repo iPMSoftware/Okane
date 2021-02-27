@@ -22,6 +22,8 @@ const (
 	DailyReport
 	PeriodicReport
 	WaresReport
+	Erasing
+	ConfigLanguage
 )
 
 var current Id = Main
@@ -38,12 +40,18 @@ func showProgramming() {
 	show(Programming)
 }
 
+func showConfiguration() {
+	show(Configuration)
+}
+
 func Init() {
 	initPositions()
-	MenuTree[Main] = Layout{PreviousMenuIndex: Main, positions: []Position{Positions[Sale], Positions[ReadReports], Positions[Programming]}}
+	MenuTree[Main] = Layout{PreviousMenuIndex: Main, positions: []Position{Positions[Sale], Positions[ReadReports], Positions[Programming], Positions[Configuration]}}
 	MenuTree[Sale] = Layout{PreviousMenuIndex: Main, positions: []Position{}}
 	MenuTree[ReadReports] = Layout{PreviousMenuIndex: Main, positions: []Position{Positions[DailyReport], Positions[PeriodicReport], Positions[WaresReport]}}
 	MenuTree[Programming] = Layout{PreviousMenuIndex: Main, positions: []Position{}}
+
+	MenuTree[Configuration] = Layout{PreviousMenuIndex: Main, positions: []Position{Positions[ConfigLanguage]}}
 }
 
 func GetNextMenuToShow(next int) {

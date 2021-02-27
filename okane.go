@@ -6,6 +6,7 @@ import (
 	"okane/hardware"
 	"okane/menu"
 	"okane/sim"
+	"okane/texts"
 )
 
 func main() {
@@ -13,6 +14,7 @@ func main() {
 	defer hardware.DeInitHardware()
 
 	hardware.InitHardware()
+	texts.Init()
 	menu.Init()
 	sim.Init()
 	ware.Init()

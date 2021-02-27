@@ -16,6 +16,10 @@ replace okane/sim => ./simulator
 
 replace okane/reports => ./reports
 
+replace okane/configuration => ./configuration
+
+replace okane/texts => ./texts
+
 require (
 	github.com/eiannone/keyboard v0.0.0-20200508000154-caf4b762e807
 	github.com/llgcode/draw2d v0.0.0-20200930101115-bfaf5d914d1e
